@@ -6,6 +6,12 @@ module.exports.findAllProducts = (request, response) => {
         .catch(err => response.json({ message: "Something went wrong", error: err}))
 };
 
+module.exports.findOneSingleProduct = (request, response) => {
+    Product.find({_id: request.params.id})
+        .then(oneSingleProduct => response.json({ product: oneSingleProduct}))
+        .catch(err => response.json({ message: "Something went wrong", error: err}));
+}
+
 module.exports.createProduct = (request, response) => {
     const { title, price, description } = request.body;
     Product.create({

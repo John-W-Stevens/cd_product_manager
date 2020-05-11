@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import axios from "axios"
 
 const CreateProductForm = props => {
+
+    const { counter, setCounter } = props
     const [title, setTitle] = useState("")
     const [price, setPrice] = useState(0)
     const [description, setDescription] = useState("")
@@ -14,6 +16,7 @@ const CreateProductForm = props => {
             description
         })
             .then(response => console.log("Response: ", response))
+            .then(response => setCounter( {count: +1} ))
             .catch(error => console.log("Error: ", error))
     }
 
@@ -21,7 +24,7 @@ const CreateProductForm = props => {
         <div className="container">
             <div className="row">
                 <div className="col-6 offset-3">
-                    <h1>Product Manager</h1>
+                    <h2 className="text-center">Product Manager</h2>
                     <form onSubmit={ onSubmitHandler }>
                         <div className="form-group">
                             <label>Title:</label>

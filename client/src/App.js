@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { Router } from "@reach/router"
+
 import "./bootstrap.css"
-import CreateProductForm from "./components/CreateProductForm"
+
+import DisplayProduct from "./views/DisplayProduct"
+
+import CreateView from "./views/CreateView"
 
 function App() {
+  const [counter, setCounter] = useState({count: 0})
+
   return (
     <div className="App">
-      <CreateProductForm />
+    
+      <Router>
+        <CreateView counter={counter} setCounter={setCounter} path="/"/>
+        <DisplayProduct path="/products/:id"/>
+      </Router>      
     </div>
   );
 }
 
 export default App;
+
+
+// <CreateProductForm counter={counter} setCounter={setCounter}/>
+// <DisplayAllProducts counter={counter}/>
