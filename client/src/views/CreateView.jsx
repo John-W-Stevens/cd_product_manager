@@ -8,7 +8,7 @@ const CreateView = props => {
     return(
         <div>
             <CreateProductForm counter={counter} setCounter={setCounter}/>
-            <DisplayAllProducts counter={counter}/>
+            <DisplayAllProducts counter={counter} setCounter={setCounter} />
         </div>
     )
 }

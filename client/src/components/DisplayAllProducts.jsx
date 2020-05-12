@@ -4,7 +4,7 @@ import { Link } from "@reach/router"
 
 const DisplayAllProducts = props => {
 
-    const { counter } = props
+    const { counter, setCounter } = props
     const [products, setProducts] = useState([])
 
     useEffect( () => {
@@ -13,8 +13,15 @@ const DisplayAllProducts = props => {
             .catch(err => console.log("There was an error", err))
     }, [counter.count])
 
-    const getId = item => {
+    const getProductUrl = item => {
         return `/products/${item._id}`
+    }
+
+    const deleteProduct = url => {
+        axios.delete("http://localhost:8000/api" + url)
+            .then(response => console.log("Product was successfully deleted: ", response))
+            .then(()=> setCounter( {count: -1} ))
+            .catch(error => console.log("There was a problem: ", error))
     }
 
     return(
@@ -26,7 +33,10 @@ const DisplayAllProducts = props => {
                 <div className="col-6 offset-3 text-center">
                     {
                         products.map( (item, i)=> 
-                            <p key={i*20}><Link to={ getId(item) } key={ i }>{item.title}</Link></p>
+                            <p key={i} style={{marginTop: "10px"}}>
+                                <Link to={ getProductUrl(item) }>{item.title}</Link>
+                                <button onClick={ (e)=>{deleteProduct(getProductUrl(item))}  } className="btn btn-danger btn-sm" style={{marginLeft: "20px"}}>delete</button>
+                            </p>
                         )
                     }
                 </div>

@@ -21,6 +21,13 @@ const DisplayProduct = props => {
         navigate(`/products/${id}/edit`)
     }
 
+    const onDeleteButtonClick = e => {
+        axios.delete(`http://localhost:8000/api/products/${id}`)
+            .then(navigate("/"))
+            .catch(error => console.log("There was an issue: ", error))
+    }
+
+
     return(
         <div className="container">
             <div className="row" style={{marginTop: "200px"}}>
@@ -28,7 +35,10 @@ const DisplayProduct = props => {
                     <p style={{fontSize: "30px"}}>{product.title}</p>
                     <p style={{fontSize: "20px"}}>Price: {price}</p>
                     <p style={{fontSize: "20px"}}>Description: {product.description}</p>
-                    <p><button onClick={ onClickHandler } className="btn btn-warning btn-md">Edit</button></p>
+                    <p>
+                        <button onClick={ onClickHandler } className="btn btn-warning btn-md">Edit</button>
+                        <button onClick={ onDeleteButtonClick } className="btn btn-danger btn-md" style={{marginLeft: "10px"}}>Delete</button>
+                    </p>
                 </div>
             </div>
         </div>
